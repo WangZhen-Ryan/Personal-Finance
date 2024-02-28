@@ -1,0 +1,89 @@
+<% balance_trend_styles = @balance_series.nil? ? {} : trend_styles(@balance_series[:trend]) %>
+<div class="space-y-4">
+  <div class="flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <div class="bg-green-600/10 rounded-full h-8 w-8 flex items-center justify-center">
+        <span class="text-green-600"><%= @account.name[0].upcase %></span>
+      </div>
+      <h2 class="font-medium text-xl"><%= @account.name %></h2>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="relative cursor-not-allowed">
+        <div class="flex items-center gap-2 px-3 py-2">
+          <span class="text-gray-900">USD $</span>
+          <%= lucide_icon("chevron-down", class: "w-5 h-5 text-gray-500") %>
+        </div>
+      </div>
+      <div class="cursor-not-allowed">
+        <%= lucide_icon("more-horizontal", class: "w-5 h-5 text-gray-500") %>
+      </div>
+    </div>
+  </div>
+  <%= turbo_frame_tag "sync_message" do %>
+    <%= render partial: "accounts/sync_message", locals: { is_syncing: @account.status == "SYNCING" } %>
+  <% end %>
+  <div class="bg-white shadow-xs rounded-xl border border-alpha-black-25 rounded-lg">
+    <div class="p-4 flex justify-between">
+      <div class="space-y-2">
+        <p class="text-sm text-gray-500">Total Value</p>
+        <%# TODO: Will need a better way to split a formatted monetary value into these 3 parts %>
+        <p class="text-gray-900">
+          <span class="text-gray-500"><%= number_to_currency(@account.original_balance)[0] %></span>
+          <span class="text-xl font-medium"><%= number_with_delimiter(@account.original_balance.round) %></span>
+          <span class="text-gray-500">.<%= number_to_currency(@account.original_balance, precision: 2)[-2, 2] %></span>
+        </p>
+        <% if @balance_series.nil? %>
+          <p class="text-sm text-gray-500">Data not available for the selected period</p>
+        <% elsif @balance_series[:trend].amount == 0 %>
+          <p class="text-sm text-gray-500">No change vs. prior period</p>
+        <% else %>
+          <p class="text-sm <%= balance_trend_styles[:text_class] %>">
+            <span><%= balance_trend_styles[:symbol] %><%= number_to_currency(@balance_series[:trend].amount.abs, precision: 2) %></span>
+            <span>(<%= lucide_icon(@balance_series[:trend].amount > 0 ? 'arrow-up' : 'arrow-down', class: "w-4 h-4 align-text-bottom inline") %> <%= @balance_series[:trend].percent %>%)</span>
+            <span class="text-gray-500"><%= trend_label(@period) %></span>
+          </p>
+        <% end %>
+      </div>
+      <%= form_with url: account_path(@account), method: :get, class: "flex items-center gap-4", html: { class: "" } do |f| %>
+        <%= f.select :period, options_for_select([['7D', 'last_7_days'], ['1M', 'last_30_days'], ["1Y", "last_365_days"], ['All', 'all']], selected: params[:period]), {}, { class: "block w-full border border-alpha-black-100 shadow-xs rounded-lg text-sm py-2 pr-8 pl-2 cursor-pointer", onchange: "this.form.submit();" } %>
+      <% end %>
+    </div>
+    <div class="h-96 flex items-center justify-center text-2xl font-bold">
+      <% if @balance_series %>
+        <div data-controller="line-chart" id="lineChart" class="w-full h-full" data-line-chart-series-value="<%= @balance_series[:series_data].to_json %>"></div>
+      <% else %>
+        <div class="w-full h-full flex items-center justify-center">
+          <p class="text-gray-500">No data available for the selected period.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="bg-white space-y-4 p-5 border border-alpha-black-25 rounded-xl shadow-xs">
+    <div class="flex justify-between items-center">
+      <h3 class="font-medium text-lg">History</h3>
+      <%= link_to new_account_valuation_path(@account), data: { turbo_frame: dom_id(Valuation.new) }, class: "flex gap-1 font-medium items-center bg-gray-50 text-gray-900 p-2 rounded-lg" do %>
+        <%= lucide_icon("plus", class: "w-5 h-5 text-gray-900") %>
+        <span class="text-sm">New entry</span>
+      <% end %>
+    </div>
+    <div class="rounded-xl bg-gray-25 p-1">
+      <div class="flex flex-col rounded-lg space-y-1">
+        <div class="text-xs font-medium text-gray-500 uppercase flex items-center px-4 py-2">
+          <div class="w-16">date</div>
+          <div class="flex items-center justify-between grow">
+            <div></div>
+            <div>value</div>
+          </div>
+          <div class="w-56 text-right">change</div>
+          <div class="w-[72px]"></div>
+        </div>
+        <div class="rounded-lg bg-white border-alpha-black-25 shadow-xs">
+          <%= turbo_frame_tag dom_id(Valuation.new) %>
+          <%= turbo_frame_tag "valuations_list" do %>
+            <%= render partial: "accounts/account_valuation_list", locals: { valuation_series: @valuation_series } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

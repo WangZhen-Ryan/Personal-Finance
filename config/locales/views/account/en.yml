@@ -1,0 +1,13 @@
+---
+en:
+  accounts:
+    create:
+      success: New account created successfully
+    index:
+      title: Cash
+    new:
+      name:
+        label: Account name
+        placeholder: Example account name
+      select_accountable_type: What would you like to add?
+      title: Add an account

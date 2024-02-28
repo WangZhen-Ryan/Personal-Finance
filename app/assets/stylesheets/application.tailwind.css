@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset rules, default styles applied to plain HTML */
+@layer base {
+}
+
+@layer components {
+  .prose {
+    table {
+      @apply divide-y divide-gray-300;
+    }
+
+    tr {
+      @apply divide-x divide-gray-100;
+    }
+
+    th {
+      @apply whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900;
+    }
+
+    tbody {
+      @apply divide-y divide-gray-200;
+    }
+
+    td {
+      @apply px-2 py-2 text-sm text-gray-500 whitespace-nowrap;
+    }
+  }
+
+  .form-field {
+    @apply relative border bg-white rounded-xl shadow-sm;
+    @apply focus-within:shadow-none focus-within:border-gray-900 focus-within:ring-4 focus-within:ring-gray-100;
+  }
+
+  .form-field__label {
+    @apply p-3 pb-0 block text-sm font-medium opacity-50;
+  }
+
+  .form-field__input {
+    @apply p-3 pt-1 w-full bg-transparent border-none opacity-50;
+    @apply focus:outline-none focus:ring-0 focus:opacity-100;
+  }
+
+  .form-field__submit {
+    @apply w-full p-3 text-center text-white bg-black rounded-lg hover:bg-gray-700;
+  }
+}
+
+/* Small, single purpose classes that should take precedence over other styles */
+@layer utilities {
+}
