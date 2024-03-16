@@ -3,43 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fancy Page</title>
-  <!-- Link to Tailwind CSS CDN -->
+  <title>Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Additional CSS for fancy effects -->
   <style>
     /* Rainbow Text Effect */
     .rainbow-text {
-      background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+      background: linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
-    /* Blinking Animation */
-    @keyframes blink {
-      0% { opacity: 1; }
-      50% { opacity: 0; }
-      100% { opacity: 1; }
+
+    /* Fancy Card Scaling */
+    .feature-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.2);
     }
-    .blink {
-      animation: blink 1s infinite;
+
+    /* Animations */
+    @keyframes rainbow-animation {
+      0% { background-position: 0 0; }
+      50% { background-position: 100% 0; }
+      100% { background-position: 0 0; }
     }
+
+    /* Tailwind Utility Classes for Responsiveness */
+    @media (min-width: 640px) {
+      .feature-card { width: calc(50% - 2rem); }
+    }
+
+    @media (min-width: 768px) {
+      .feature-card { width: calc(33.333333% - 2rem); }
+    }
+
+    /* Ensures feature cards stack on smaller screens and spread out on larger screens */
+    @media (max-width: 640px) {
+      .feature-card { width: 100%; margin: 1rem 0; } /* Stacks on smaller screens */
+    }
+
+    @media (min-width: 641px) {
+      .feature-card { width: calc(50% - 1rem); margin: 0.5rem; } /* 2 columns for medium screens */
+    }
+
+    @media (min-width: 1024px) {
+      .feature-card { width: calc(33.3333% - 1rem); margin: 0.5rem; } /* 3 columns for large screens */
+    }
+    
   </style>
 </head>
 <body class="bg-gray-100">
-  <!-- Main Content -->
-  <div class="container mx-auto p-8">
-    <!-- Fancy Title -->
-    <h1 class="text-3xl font-semibold font-display rainbow-text"><%= t('.title') %></h1>
 
-    <!-- New Section Start -->
-    <div class="new-section mt-8">
-      <!-- Fancy Section Title -->
-      <h2 class="text-2xl font-semibold rainbow-text blink">New Section</h2>
-      <!-- Fancy Section Content -->
-      <p class="mt-4 text-lg text-purple-600">This is a placeholder for the new section content.</p>
+<div class="container mx-auto p-8">
+  <h1 class="text-3xl lg:text-5xl font-bold text-center mb-12 rainbow-text">Dashboard</h1>
+
+  <div class="flex flex-wrap -mx-4 justify-center">
+    <div class="feature-card m-4 p-6 bg-white rounded-lg shadow-lg transition-transform duration-300 ease-in-out cursor-pointer" onclick="location.href='tax_forecast.html';">
+      <h2 class="text-xl lg:text-2xl font-bold mb-4">Tax Forecast</h2>
+      <p>Interactive charts and tax planning tools.</p>
     </div>
-    <!-- New Section End -->
+    
+    <div class="feature-card m-4 p-6 bg-white rounded-lg shadow-lg transition-transform duration-300 ease-in-out cursor-pointer" onclick="location.href='supa.html';">
+      <h2 class="text-xl lg:text-2xl font-bold mb-4">SUPA</h2>
+      <p>Manage your SUPA contributions and performance.</p>
+    </div>
+    
+    <div class="feature-card m-4 p-6 bg-white rounded-lg shadow-lg transition-transform duration-300 ease-in-out cursor-pointer" onclick="location.href='product_price_tracker.html';">
+      <h2 class="text-xl lg:text-2xl font-bold mb-4">Product Price Tracker</h2>
+      <p>Monitor and compare market trends.</p>
+    </div>
   </div>
+</div>
+
+<footer class="bg-gray-800 text-center py-6 mt-12">
+  <p class="text-white text-sm">
+    &copy; 2024 Personal Finance. All rights reserved. 
+    <a href="privacy-policy.html" class="text-indigo-300 hover:text-indigo-500">Privacy Policy</a> | 
+    <a href="terms-of-service.html" class="text-indigo-300 hover:text-indigo-500">Terms of Service</a>
+  </p>
+</footer>
+
 </body>
 </html>
