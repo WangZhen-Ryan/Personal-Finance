@@ -1,1 +1,45 @@
-<h1 class="text-3xl font-semibold font-display"><%= t('.title')%></h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fancy Page</title>
+  <!-- Link to Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Additional CSS for fancy effects -->
+  <style>
+    /* Rainbow Text Effect */
+    .rainbow-text {
+      background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    /* Blinking Animation */
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .blink {
+      animation: blink 1s infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Main Content -->
+  <div class="container mx-auto p-8">
+    <!-- Fancy Title -->
+    <h1 class="text-3xl font-semibold font-display rainbow-text"><%= t('.title') %></h1>
+
+    <!-- New Section Start -->
+    <div class="new-section mt-8">
+      <!-- Fancy Section Title -->
+      <h2 class="text-2xl font-semibold rainbow-text blink">New Section</h2>
+      <!-- Fancy Section Content -->
+      <p class="mt-4 text-lg text-purple-600">This is a placeholder for the new section content.</p>
+    </div>
+    <!-- New Section End -->
+  </div>
+</body>
+</html>
