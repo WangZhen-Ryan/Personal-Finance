@@ -3,43 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fancy Page</title>
-  <!-- Link to Tailwind CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Additional CSS for fancy effects -->
-  <style>
-    /* Rainbow Text Effect */
-    .rainbow-text {
-      background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    /* Blinking Animation */
-    @keyframes blink {
-      0% { opacity: 1; }
-      50% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-    .blink {
-      animation: blink 1s infinite;
-    }
-  </style>
+  <title>Financial Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
-  <!-- Main Content -->
-  <div class="container mx-auto p-8">
-    <!-- Fancy Title -->
-    <h1 class="text-3xl font-semibold font-display rainbow-text"><%= t('.title') %></h1>
 
-    <!-- New Section Start -->
-    <div class="new-section mt-8">
-      <!-- Fancy Section Title -->
-      <h2 class="text-2xl font-semibold rainbow-text blink">New Section</h2>
-      <!-- Fancy Section Content -->
-      <p class="mt-4 text-lg text-purple-600">This is a placeholder for the new section content.</p>
+  <div class="container mx-auto my-8 p-6 bg-white rounded-lg shadow-xl">
+    <div class="mb-5">
+      <h1 class="text-xl font-semibold text-gray-700">Morning, Josh</h1>
+      <p class="text-gray-500">Monday, Feb 5</p>
     </div>
-    <!-- New Section End -->
+
+    <div class="mb-10">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <p class="text-lg text-gray-500">Net Worth</p>
+          <p class="text-3xl font-bold text-gray-900">$2,808,491.15</p>
+          <p class="text-green-500">+1,553.43 (+0.9%) vs last month</p>
+        </div>
+        <div>
+          <button class="text-sm text-gray-700 bg-gray-200 px-3 py-1 rounded-md focus:outline-none hover:bg-gray-300">1M</button>
+        </div>
+      </div>
+      <!-- Placeholder for graph -->
+      <div class="h-32 bg-gray-200 rounded-md"></div>
+    </div>
+
+    <div class="flex mb-8">
+      <div class="w-1/2 pr-3">
+        <p class="text-lg text-gray-500">Total Assets</p>
+        <p class="text-2xl font-bold text-gray-900">$2,724,482.91</p>
+        <p class="text-green-500">+$871.22 (+2.8%) vs last month</p>
+      </div>
+      <div class="w-1/2 pl-3">
+        <p class="text-lg text-gray-500">Total Liabilities</p>
+        <p class="text-2xl font-bold text-gray-900">$84,008.24</p>
+        <p class="text-red-500">+$1,704.56 (+1.9%) vs last month</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col">
+      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
+          <div class="overflow-hidden shadow-md sm:rounded-lg">
+            <table class="min-w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    % of Assets
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Value
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Change
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white border-b">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    Cash
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    9.74%
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    $48,534.22
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">
+                    +$1,553.43 (+0.9%)
+                  </td>
+                </tr>
+                <!-- Repeat rows for each asset category -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
 </body>
 </html>
