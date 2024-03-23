@@ -3,7 +3,8 @@ source "https://rubygems.org"
 ruby "3.3.0"
 
 # Rails
-gem "rails", github: "rails/rails", branch: "main"
+# gem "rails", github: "rails/rails", branch: "main"
+gem "rails", git: "https://github.com/rails/rails", branch: "main"
 
 # Drivers
 gem "pg", "~> 1.5"
@@ -17,7 +18,7 @@ gem "bootsnap", require: false
 gem "importmap-rails"
 gem "propshaft"
 gem "tailwindcss-rails"
-gem "lucide-rails", github: "maybe-finance/lucide-rails"
+gem "lucide-rails", git: "https://github.com/maybe-finance/lucide-rails"
 
 # Hotwire
 gem "stimulus-rails"
@@ -30,11 +31,11 @@ gem "good_job"
 gem "bcrypt", "~> 3.1.7"
 gem "inline_svg"
 gem "jbuilder"
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+# gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "faraday"
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri windows ]
+  # gem "debug", platforms: %i[ mri windows ]
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
   gem "dotenv-rails"

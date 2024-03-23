@@ -31,4 +31,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "pages#dashboard"
+
+  # Defines the dashboard path route ("/dashboard") new
+  get "product_price_tracker", to: "products#price_tracker"
 end

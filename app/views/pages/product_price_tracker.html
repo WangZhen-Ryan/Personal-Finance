@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Price Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-8">
+  <h1 class="text-3xl lg:text-5xl font-bold text-center mb-12">Product Price Tracker</h1>
+  
+  <div id="chart"></div>
+  
+  <script>
+    // D3.js visualization code goes here
+    // You can adapt the stacked bar chart example from ObservableHQ for your own use
+    // Example code starts
+    var svg = d3.select("#chart").append("svg")
+        .attr("width", 960)
+        .attr("height", 500);
+
+    // Add D3.js code to create a stacked bar chart
+    // Note: You will need to adapt the ObservableHQ example to fit within this script tag,
+    // converting it to use local data or a static dataset.
+    
+    // Example code ends
+  </script>
+</div>
+<footer class="bg-gray-800 text-center py-6 mt-12">
+  <p class="text-white text-sm">
+    &copy; 2024 Personal Finance. All rights reserved. 
+    <a href="privacy-policy.html" class="text-indigo-300 hover:text-indigo-500">Privacy Policy</a> | 
+    <a href="terms-of-service.html" class="text-indigo-300 hover:text-indigo-500">Terms of Service</a>
+  </p>
+</footer>
+</body>
+</html>
