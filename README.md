@@ -20,4 +20,7 @@ After cloning the repo, the basic setup commands are:
 ```sh
 cd your-project-directory
 cp .env.example .env
-# Additional setup commands...
+
+bin/setup
+bin/dev
+
