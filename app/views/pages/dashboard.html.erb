@@ -26,7 +26,15 @@
         </div>
       </div>
       <!-- Placeholder for graph -->
-      <div class="h-32 bg-gray-200 rounded-md"></div>
+      <div class="h-96 flex items-center justify-center text-2xl font-bold">
+      <% if @balance_series %>
+        <div data-controller="line-chart" id="lineChart" class="w-full h-full" data-line-chart-series-value="<%= @balance_series[:series_data].to_json %>"></div>
+      <% else %>
+        <div class="w-full h-full flex items-center justify-center">
+          <p class="text-gray-500">No data available for the selected period.</p>
+        </div>
+      <% end %>
+    </div>
     </div>
 
     <div class="flex mb-8">
