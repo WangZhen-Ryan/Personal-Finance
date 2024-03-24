@@ -17,12 +17,12 @@
     </div>
 
   <!-- Net Worth Chart Container -->
-  <%# <div class="mb-10">
-    <h2 class="text-lg font-semibold text-gray-700">Net Worth Over Time</h2>
-    <div class="h-64">
-      <canvas id="netWorthChart"></canvas>
-    </div>
-  </div> %>
+  # <%# <div class="mb-10">
+  #   <h2 class="text-lg font-semibold text-gray-700">Net Worth Over Time</h2>
+  #   <div class="h-64">
+  #     <canvas id="netWorthChart"></canvas>
+  #   </div>
+  # </div> %>
 
   <div class="h-96 flex items-center justify-center text-2xl font-bold">
   <% if @net_worth_series.present? %>
@@ -156,7 +156,7 @@
     options: assetsLiabilitiesChartOptions(Math.max(...totalAssetsData) * 1.1) // Adjusted options
   });
 
-  
+
 
   // Initialize Total Liabilities Chart with adjusted options
   new Chart(document.getElementById('totalLiabilitiesChart').getContext('2d'), {
