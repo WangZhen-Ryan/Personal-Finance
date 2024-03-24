@@ -33,6 +33,5 @@ Rails.application.routes.draw do
   root "pages#dashboard"
 
   # newly added for dashboard
-  # Assuming you're adding a new action
   get "net_worth_series", to: "accounts#net_worth_series"
 end

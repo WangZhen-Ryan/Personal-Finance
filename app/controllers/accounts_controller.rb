@@ -62,6 +62,8 @@ def net_worth_series
     end
   end
 
+  Rails.logger.debug "Aggregated Balances: #{aggregated_balances.inspect}"
+
   # Convert to a series format for the chart
   @net_worth_series = aggregated_balances.map do |date, total_balance|
     { date: date, balance: total_balance }

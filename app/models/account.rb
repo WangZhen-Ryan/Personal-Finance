@@ -36,7 +36,7 @@ class Account < ApplicationRecord
 
     # new for dashboard
     # Class method to calculate net worth series for a family or user grouping
-    def self.net_worth_series(family, period)
+  def net_worth_series(family, period)
       accounts = family.accounts.includes(:balances)
       net_worth_by_date = {}
 
