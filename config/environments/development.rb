@@ -84,7 +84,8 @@ Rails.application.configure do
   config.generators.apply_rubocop_autocorrect_after_generate!
 
   # Log to STDOUT in development
-  config.logger = Logger.new(STDOUT)
+  config.logger = ActiveSupport::Logger.new(STDOUT)
+  config.logger.level = Logger::DEBUG
 
   # Allow connection from any host in development
   config.hosts = nil
