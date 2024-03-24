@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Financial Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Include Chart.js from a CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gray-100">
 
@@ -14,48 +16,36 @@
       <p class="text-gray-500">Monday, Feb 5</p>
     </div>
 
-    <div class="mb-10">
-      <div class="flex justify-between items-center mb-4">
-        <div>
-          <p class="text-lg text-gray-500">Net Worth</p>
-          <p class="text-3xl font-bold text-gray-900">$2,808,491.15</p>
-          <p class="text-green-500">+1,553.43 (+0.9%) vs last month</p>
-        </div>
-        <div>
-          <button class="text-sm text-gray-700 bg-gray-200 px-3 py-1 rounded-md focus:outline-none hover:bg-gray-300">1M</button>
-        </div>
-      </div>
-      <!-- Placeholder for graph -->
-      <div class="h-96 flex items-center justify-center text-2xl font-bold">
-      <% if @balance_series %>
-        <div data-controller="line-chart" id="lineChart" class="w-full h-full" data-line-chart-series-value="<%= @balance_series[:series_data].to_json %>"></div>
-      <% else %>
-        <div class="w-full h-full flex items-center justify-center">
-          <p class="text-gray-500">No data available for the selected period.</p>
-        </div>
-      <% end %>
+  <!-- Net Worth Chart Container -->
+  <div class="mb-10">
+    <h2 class="text-lg font-semibold text-gray-700">Net Worth Over Time</h2>
+    <div class="h-64">
+      <canvas id="netWorthChart"></canvas>
     </div>
-    </div>
+  </div>
 
-    <div class="flex mb-8">
-      <div class="w-1/2 pr-3">
-        <p class="text-lg text-gray-500">Total Assets</p>
-        <p class="text-2xl font-bold text-gray-900">$2,724,482.91</p>
-        <p class="text-green-500">+$871.22 (+2.8%) vs last month</p>
+    <div class="flex justify-between mb-4">
+      <!-- Total Assets -->
+      <div class="w-1/2 mr-2 p-4 bg-white rounded-lg shadow-xs">
+        <h2 class="text-lg font-semibold text-gray-700">Total Assets</h2>
+        <p class="text-3xl font-bold text-gray-900" id="totalAssets">$2,298,000.00</p>
+        <canvas id="totalAssetsChart" class="mt-3 h-40"></canvas>
       </div>
-      <div class="w-1/2 pl-3">
-        <p class="text-lg text-gray-500">Total Liabilities</p>
-        <p class="text-2xl font-bold text-gray-900">$84,008.24</p>
-        <p class="text-red-500">+$1,704.56 (+1.9%) vs last month</p>
+      <!-- Total Liabilities -->
+      <div class="w-1/2 ml-2 p-4 bg-white rounded-lg shadow-xs">
+        <h2 class="text-lg font-semibold text-gray-700">Total Liabilities</h2>
+        <p class="text-3xl font-bold text-gray-900" id="totalLiabilities">$57,000.00</p>
+        <canvas id="totalLiabilitiesChart" class="mt-3 h-40"></canvas>
       </div>
     </div>
+  </div>
+
 
     <div class="flex flex-col">
       <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
           <div class="overflow-hidden shadow-md sm:rounded-lg">
             <table class="min-w-full">
-              <!-- Tittles -->
               <thead class="bg-gray-50">
                 <tr>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -87,48 +77,6 @@
                     +$1,553.43 (+0.9%)
                   </td>
                 </tr>
-                <tr class="bg-white border-b">
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    Investments
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    37.67%
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    $1,120,448.63
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">
-                    +$8,221.66 (+4.9%)
-                  </td>
-                </tr>
-                <tr class="bg-white border-b">
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    Crypto
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    14.11%
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    $190,771.22
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">
-                    -$4,221.71 (-0.9%)
-                  </td>
-                </tr>
-                <tr class="bg-white border-b">
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    Real Estate
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    38.48%
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    $1,320,448,12
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">
-                    +$44,553.43 (+6.2%)
-                  </td>
-                </tr>
                 <!-- Repeat rows for each asset category -->
               </tbody>
             </table>
@@ -137,6 +85,101 @@
       </div>
     </div>
   </div>
+  <!-- Script for Chart.js and Table Population -->
+  <script>
+  // Define the options for the assets and liabilities charts
+  const assetsLiabilitiesChartOptions = (maxValue) => ({
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true, // Or false if you don't want to start from zero
+          suggestedMax: maxValue, // Adjust this value to set the maximum value of the scale
+        }
+      }],
+    },
+    legend: { display: false },
+    responsive: true,
+    maintainAspectRatio: true, // Set to true to keep the aspect ratio
+    aspectRatio: 2, // Adjust this as needed
+  });
+
+  // Net worth chart options remain unchanged
+  const netWorthChartOptions = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: false,
+          callback: function(value) {
+            return '$' + value.toLocaleString();
+          }
+        }
+      }],
+    },
+    legend: { display: false },
+    responsive: true,
+    maintainAspectRatio: false
+  };
+
+  // Financial data (replace with actual data)
+  const months = ['October', 'November', 'December', 'January', 'February'];
+  const totalAssetsData = [2150000, 2180000, 2200000, 2250000, 2298000]; // Use realistic data changes
+  const totalLiabilitiesData = [50000, 48000, 55000, 53000, 57000]; // Use realistic data changes
+
+  // Calculate net worth data
+  const netWorthData = totalAssetsData.map((assets, index) => assets - totalLiabilitiesData[index]);
+
+  // Initialize Total Assets Chart with adjusted options
+  new Chart(document.getElementById('totalAssetsChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [{
+        label: 'Total Assets',
+        data: totalAssetsData,
+        borderColor: 'rgb(54, 162, 235)',
+        fill: false,
+        lineTension: 0.1,
+        borderWidth: 2
+      }]
+    },
+    options: assetsLiabilitiesChartOptions(Math.max(...totalAssetsData) * 1.1) // Adjusted options
+  });
+
+  // Initialize Total Liabilities Chart with adjusted options
+  new Chart(document.getElementById('totalLiabilitiesChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [{
+        label: 'Total Liabilities',
+        data: totalLiabilitiesData,
+        borderColor: 'rgb(255, 99, 132)',
+        fill: false,
+        lineTension: 0.1,
+        borderWidth: 2
+      }]
+    },
+    options: assetsLiabilitiesChartOptions(Math.max(...totalLiabilitiesData) * 1.1) // Adjusted options
+  });
+
+  // Initialize Net Worth Chart with original options
+  new Chart(document.getElementById('netWorthChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [{
+        label: 'Net Worth',
+        data: netWorthData,
+        borderColor: 'rgb(75, 192, 192)',
+        fill: false,
+        lineTension: 0.1,
+        borderWidth: 2
+      }]
+    },
+    options: netWorthChartOptions // Original options
+  });
+
+</script>
 
 </body>
 </html>
