@@ -34,6 +34,32 @@ class Account < ApplicationRecord
     series_data.reverse_each
   end
 
+    # new for dashboard
+    # Class method to calculate net worth series for a family or user grouping
+    def self.net_worth_series(family, period)
+      accounts = family.accounts.includes(:balances)
+      net_worth_by_date = {}
+
+      accounts.each do |account|
+        account_balances = account.balance_series(period)
+        next if account_balances.nil?
+
+        account_balances[:series_data].each do |entry|
+          date = entry[:data].date
+          balance = entry[:data].balance
+          net_worth_by_date[date] ||= 0
+          net_worth_by_date[date] += balance
+        end
+      end
+
+      # Convert hash to series format expected by the front end
+      net_worth_by_date.map do |date, total_balance|
+        { date: date, balance: total_balance }
+      end.sort_by { |entry| entry[:date] }
+    end
+
+
+
   def check_currency
     if self.original_currency == self.family.currency
       self.converted_balance = self.original_balance

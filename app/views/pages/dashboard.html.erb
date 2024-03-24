@@ -17,12 +17,23 @@
     </div>
 
   <!-- Net Worth Chart Container -->
-  <div class="mb-10">
+  <%# <div class="mb-10">
     <h2 class="text-lg font-semibold text-gray-700">Net Worth Over Time</h2>
     <div class="h-64">
       <canvas id="netWorthChart"></canvas>
     </div>
-  </div>
+  </div> %>
+
+  <div class="h-96 flex items-center justify-center text-2xl font-bold">
+  <% if @net_worth_series.present? %>
+    <div data-controller="line-chart" id="netWorthChart" class="w-full h-full" data-line-chart-series-value="<%= @net_worth_series.to_json %>"></div>
+  <% else %>
+    <div class="w-full h-full flex items-center justify-center">
+      <p class="text-gray-500">No net worth data available.</p>
+    </div>
+  <% end %>
+</div>
+
 
     <div class="flex justify-between mb-4">
       <!-- Total Assets -->
@@ -128,7 +139,7 @@
   // Calculate net worth data
   const netWorthData = totalAssetsData.map((assets, index) => assets - totalLiabilitiesData[index]);
 
-  // Initialize Total Assets Chart with adjusted options
+  //Initialize Total Assets Chart with adjusted options
   new Chart(document.getElementById('totalAssetsChart').getContext('2d'), {
     type: 'line',
     data: {
@@ -144,6 +155,8 @@
     },
     options: assetsLiabilitiesChartOptions(Math.max(...totalAssetsData) * 1.1) // Adjusted options
   });
+
+  
 
   // Initialize Total Liabilities Chart with adjusted options
   new Chart(document.getElementById('totalLiabilitiesChart').getContext('2d'), {

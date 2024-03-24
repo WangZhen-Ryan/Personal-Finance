@@ -43,4 +43,39 @@ class AccountsController < ApplicationController
   def account_params
     params.require(:account).permit(:name, :accountable_type, :original_balance, :original_currency, :subtype)
   end
+
+
+# new for dashboard
+
+# Add a new action or modify an existing one
+def net_worth_series
+  @period = determine_period(params)
+
+  # Aggregate balances from all accounts
+  aggregated_balances = {}
+  Current.family.accounts.each do |account|
+    account_balances = account.balance_series(@period)[:series_data]
+    account_balances.each do |entry|
+      date = entry[:data].date.to_s
+      aggregated_balances[date] ||= 0
+      aggregated_balances[date] += entry[:data].balance
+    end
+  end
+
+  # Convert to a series format for the chart
+  @net_worth_series = aggregated_balances.map do |date, total_balance|
+    { date: date, balance: total_balance }
+  end.sort_by { |entry| entry[:date] }
+
+  respond_to do |format|
+    format.html
+    format.json { render json: @net_worth_series }
+  end
+end
+
+private
+
+def determine_period(params)
+  # Logic to determine the period based on params
+end
 end
