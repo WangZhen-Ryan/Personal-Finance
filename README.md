@@ -2,7 +2,7 @@
 
 ## Backstory
 
-We are thrilled to introduce a transformative application addressing the complexities of personal finance, poised to redefine how individuals comprehend and manage their wealth. In an age where banking transactions unveil the essence of our personal lives, there is an increasing demand for a comprehensive personal finance and wealth management system. Our inspiration stems from the success of "Maybe Finance," a recent app launch that exemplifies the potential of connecting users to professional asset management. The current system seeks to be a catalyst in reshaping the traditional banking landscape, empowering individuals to deepen their understanding of the natural flow of their wealth.
+We are excited to unveil a groundbreaking application designed to simplify the intricacies of personal finance, setting a new standard in the way people understand and control their wealth. As banking transactions become more reflective of our daily lives, the need for an all-encompassing personal finance and wealth management solution becomes ever more apparent. This innovation is inspired by recent advancements in technology that have demonstrated the immense benefits of linking users with expert asset management services. Our system is poised to revolutionize the conventional banking framework, enabling individuals to gain a clearer insight into the dynamics of their financial resources.
 
 ## Local Development Setup
 
@@ -19,4 +19,6 @@ cp .env.example .env
 
 bin/setup
 bin/dev
+
+http://localhost:3000/
 
